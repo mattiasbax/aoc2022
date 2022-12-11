@@ -12,5 +12,5 @@ def find_marker(signal, marker_length):
             return i+marker_length
 
 
-print("Answer to day 5 part 1: ", find_marker(input_list[0], 4))
-print("Answer to day 5 part 2: ", find_marker(input_list[0], 14))
+print("Answer to day 6 part 1: ", find_marker(input_list[0], 4))
+print("Answer to day 6 part 2: ", find_marker(input_list[0], 14))
