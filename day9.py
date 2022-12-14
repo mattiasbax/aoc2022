@@ -10,18 +10,17 @@ def move_tail(tail, head):
     new_tail = tail
     delta = head - tail
     manhattan_distance = cityblock(list(head), list(tail))
-    # print("#########################")
     #print("Head at: ", head)
     #print("Tail at: ", tail)
     #print("Delta: ", delta)
     #print("Distance", manhattan_distance)
     if (manhattan_distance == 2 and np.prod(delta) == 0) or manhattan_distance == 3:
         move = np.clip(delta, -1, 1)
-        #print("moving: ", move)
+        # print("moving: ", move)
         new_tail = tail + move
     elif manhattan_distance == 3:
         move = np.clip(delta, -1, 1)
-        #print("moving: ", move)
+        # print("moving: ", move)
         new_tail = tail + move
     #print("Moved tail to: ", new_tail)
     return new_tail
@@ -32,16 +31,23 @@ move_map = {'L': np.array([-1, 0]),
             'U': np.array([0, 1]),
             'D': np.array([0, -1])}
 
-#input_list = [('L', 5), ('U', 10)]
-
-head = np.array([0, 0])
-tail = [np.array([0, 0])]
-visited = {tuple(tail)}
+#input_list = input_list[-10:]
+number_of_knots = 10
+knots = [np.array([0, 0])]*number_of_knots
+visited_1 = {tuple(knots[1])}
+visited_10 = {tuple(knots[-1])}
 
 for direction, distance in input_list:
     for _ in range(distance):
-        head = head + move_map[direction]
-        tail = move_tail(tail, head)
-        visited.add(tuple(tail))
+        # print("#########################")
+        for idx, knot in enumerate(knots):
+            if idx == 0:
+                knots[idx] = knots[idx] + move_map[direction]
+                # print(knots[idx])
+            else:
+                knots[idx] = move_tail(knots[idx], knots[idx-1])
+        visited_1.add(tuple(knots[1]))
+        visited_10.add(tuple(knots[-1]))
 
-print(len(visited))
+print(len(visited_1))
+print(len(visited_10))
